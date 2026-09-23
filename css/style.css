@@ -1,0 +1,101 @@
+:root{
+  --bg-olive:      #6f6e5e;
+  --ink:           #33353c;
+  --canvas-idle:   #6e6e6e;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-olive);
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6vh 5vw 8vh;
+}
+
+.jaro{
+  font-family: "Jaro", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--ink);
+}
+
+h1.title{
+  font-size: clamp(2.6rem, 9vw, 6.5rem);
+  line-height: 0.95;
+  margin: 0 0 0.5rem;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+button.fukit{
+  display: block;
+  margin: 0 auto 4.5vh;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  padding: 0.1em 0.3em;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+button.fukit:hover:not(:disabled){ transform: scale(1.06) rotate(-1deg); }
+button.fukit:active:not(:disabled){ transform: scale(0.96); }
+button.fukit:disabled{ opacity: 0.45; cursor: not-allowed; }
+button.fukit:focus-visible{ outline: 3px solid var(--ink); outline-offset: 4px; }
+
+/* ---- concrete frame, backed by the real texture photo ---- */
+.frame{
+  position: relative;
+  padding: clamp(18px, 4vw, 46px);
+  background-image: url("../assets/concreteimg.jpg");
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.35),
+    0 10px 30px rgba(0,0,0,0.25);
+}
+
+.frame::before{
+  /* subtle grain overlay so the photo doesn't look too clean/flat */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC45JyBudW1PY3RhdmVzPScyJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PGZlQ29sb3JNYXRyaXggdHlwZT0nbWF0cml4JyB2YWx1ZXM9JzAgMCAwIDAgMCAgMCAwIDAgMCAwICAwIDAgMCAwIDAgIDAgMCAwIDAuMzUgMCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNuKScvPjwvc3ZnPgo=");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.frame::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.15);
+  pointer-events: none;
+}
+
+#sketch-holder{
+  position: relative;
+  line-height: 0; /* kill inline-canvas gap */
+}
+
+#sketch-holder canvas{
+  display: block;
+}
+
+.hint{
+  margin-top: 1.2rem;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: rgba(51,53,60,0.75);
+}
